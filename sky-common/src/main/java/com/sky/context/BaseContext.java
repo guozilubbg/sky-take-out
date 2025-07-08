@@ -1,5 +1,8 @@
 package com.sky.context;
 
+/**
+ * 用于线程里传递threadlocal
+ */
 public class BaseContext {
 
     public static ThreadLocal<Long> threadLocal = new ThreadLocal<>();
