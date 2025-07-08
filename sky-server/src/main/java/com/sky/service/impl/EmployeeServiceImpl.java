@@ -72,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employeeDTO
      */
     public void save(EmployeeDTO employeeDTO) {
-        System.out.println("当前线程ID："+Thread.currentThread().getId());
+//        System.out.println("当前线程ID："+Thread.currentThread().getId());
         Employee employee = new Employee();
 //        employee.setName(employeeDTO.getName());
 
@@ -94,7 +94,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.insert(employee);
 
     }
-
+    /**
+     * 分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
     @Override
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
         //分页查询就是sql select * from employee limit 0,10;pagehelper 不用写limit 自动分页
@@ -105,6 +109,26 @@ public class EmployeeServiceImpl implements EmployeeService {
         long total = page.getTotal();
         List<Employee> result = page.getResult();
         return new PageResult(total,result);
+    }
+
+    /**
+     * 启用禁用员工账号
+     * @param status
+     * @param id
+     */
+    @Override
+    public void startOrStop(Integer status, long id) {
+        //update em set status = ? where id = ?
+
+        //创建一个实体对象并设置属性值  两种写法，这是传统写法，下面是builder写法
+//        Employee employee = new Employee();
+//        employee.setStatus(status);
+//        employee.setId(id);
+
+        Employee employee = Employee.builder().status(status).id(id).build();
+        employeeMapper.update(employee);
+
+
     }
 
 }
