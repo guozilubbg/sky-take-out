@@ -5,6 +5,7 @@ import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.result.PageResult;
+import org.apache.ibatis.annotations.Param;
 
 public interface EmployeeService {
 
@@ -31,4 +32,18 @@ public interface EmployeeService {
      * @param id
      */
     void startOrStop(Integer status, long id);
+
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
+    Employee getById(@Param("id") long id);
+
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     * @return
+     */
+    void updateById(EmployeeDTO employeeDTO);
 }
