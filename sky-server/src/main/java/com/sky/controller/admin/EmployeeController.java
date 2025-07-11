@@ -4,6 +4,7 @@ import com.sky.constant.JwtClaimsConstant;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
+import com.sky.dto.EmployeeUpPassworldDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
 import com.sky.result.PageResult;
@@ -73,6 +74,7 @@ public class EmployeeController {
     @ApiOperation(value = "员工退出")
     @PostMapping("/logout")
     public Result<String> logout() {
+        log.info("员工退出");
         return Result.success();
     }
 
@@ -133,6 +135,19 @@ public class EmployeeController {
     public Result updateById(@RequestBody EmployeeDTO employeeDTO){
         log.info("编辑员工信息:{}",employeeDTO);
         employeeService.updateById(employeeDTO);
+        return Result.success();
+    }
+
+    /**
+     * 修改密码
+
+     * @return
+     */
+    @PutMapping("/editPassword")
+    @ApiOperation("修改密码")
+    public Result updatePassword(@RequestBody EmployeeUpPassworldDTO employeeUpPassworldDTO){
+        log.info("修改密码：参数为：{}",employeeUpPassworldDTO);
+        employeeService.updatePassword(employeeUpPassworldDTO);
         return Result.success();
     }
 }

@@ -3,6 +3,7 @@ package com.sky.service;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
+import com.sky.dto.EmployeeUpPassworldDTO;
 import com.sky.entity.Employee;
 import com.sky.result.PageResult;
 import org.apache.ibatis.annotations.Param;
@@ -46,4 +47,9 @@ public interface EmployeeService {
      * @return
      */
     void updateById(EmployeeDTO employeeDTO);
+
+    /**
+     * 修改密码
+     */
+    void updatePassword(EmployeeUpPassworldDTO employeeUpPassworldDTO);
 }

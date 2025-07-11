@@ -44,7 +44,6 @@
             <if test="username != null">
                 username = #{username},
             </if>
-
             <if test="phone != null">
                 phone = #{phone},
             </if>
@@ -62,6 +61,16 @@
             </if>
             where id = #{id}
         </set>
+    </update>
+    <update id="updatePassword" parameterType="com.sky.dto.EmployeeUpPassworldDTO">
+        update employee
+        <set>
+            <if test="newPassword != null and newPassword != ''">
+                password = #{newPassword}
+            </if>
+        where id = #{id} and password = #{oldPassworld}
+        </set>
+
     </update>
 
     <select id="pageQuery" resultType="com.sky.entity.Employee">

@@ -9,6 +9,7 @@ import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
+import com.sky.dto.EmployeeUpPassworldDTO;
 import com.sky.entity.Employee;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
@@ -156,6 +157,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateUser(BaseContext.getCurrentId());
         employeeMapper.updateById(employee);
 
+    }
+
+    /**
+     * 修改密码
+     */
+    public void updatePassword(EmployeeUpPassworldDTO employeeUpPassworldDTO) {
+        //update em set status = ? where id = ?
+        System.out.println(employeeUpPassworldDTO.getId());
+        System.out.println(employeeUpPassworldDTO.getOldPassworld().getBytes());
+        employeeUpPassworldDTO.setNewPassword(DigestUtils.md5DigestAsHex(employeeUpPassworldDTO.getNewPassword().getBytes()));
+        employeeUpPassworldDTO.setOldPassworld(DigestUtils.md5DigestAsHex(employeeUpPassworldDTO.getOldPassworld().getBytes()));
+        employeeMapper.updatePassword(employeeUpPassworldDTO);
     }
 
 }
