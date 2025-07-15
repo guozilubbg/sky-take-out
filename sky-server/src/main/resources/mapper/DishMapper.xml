@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.DishMapper">
+
+    <insert id="addDishFlavors">
+    insert into dish_flavor(dish_id,name,value)
+    values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="dishId != null">
+        #{dishId},
+    </if>
+        <if test="name != null">
+         #{name},
+        </if>
+        <if test="value != null">
+        #{value}
+        </if>
+        </trim>
+    </insert>
+    <update id="updateDish" parameterType="com.sky.entity.Dish">
+        update dish
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateDishFlavors">
+        update dish_flavor
+        <set>
+            <if test="dishId != null">
+                dish_id = #{dishId},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="value != null">
+                value = #{value},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="startOrStopDishStatus">
+        update dish
+        <set>
+            <if test="status != null">
+                status = #{status}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="deleteDishByIds">
+        delete from dish where
+        <if test="id != null">
+            id = #{id}
+        </if>
+    </delete>
+    <delete id="deleteDishFlavorByIds">
+        delete from dish_flavor where dish_id = #{id}
+    </delete>
+    <select id="selectDishId" resultType="java.lang.Long">
+        select id  from dish where status = 1 order by id desc limit 1;
+    </select>
+    <select id="selectDishByPage" resultType="com.sky.entity.Dish">
+        select * from dish
+        <where>
+            <if test="categoryId != null">
+               and category_id = #{categoryId}
+            </if>
+            <if test="name != null and name !=''">
+               and name like concat('%',#{name},'%')
+            </if>
+            <if test="status != null ">
+               and status = #{status}
+            </if>
+        </where>
+    </select>
+    <select id="selectId" resultType="int">
+        select id from dish_flavor where dish_id = #{id}
+    </select>
+    <select id="queryDishById" resultType="com.sky.entity.Dish">
+        select * from dish where id = #{id}
+    </select>
+    <select id="queryDishFlavorById" resultType="com.sky.entity.DishFlavor">
+        select * from dish_flavor where id = #{id}
+    </select>
+    <select id="queryDishByCategoryId" resultType="com.sky.entity.Dish">
+        select * from dish where category_id = #{categoryId}
+    </select>
+</mapper>
